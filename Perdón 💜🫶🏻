@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Me Perdona</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f3e5f5;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            text-align: center;
+            background-color: #f8bbd0;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            position: relative; /* Añadido para posicionar la imagen */
+        }
+        .container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 15px;
+            position: absolute; /* Posicionamiento absoluto para la imagen */
+            top: 50%; /* Centrar verticalmente */
+            left: 50%; /* Centrar horizontalmente */
+            transform: translate(-50%, -50%); /* Centrar exactamente */
+            z-index: -1; /* Colocar detrás del contenido */
+            visibility: visible; /* Asegurarse de que la imagen es visible */
+        }
+        .container h1 {
+            color: #6a1b9a;
+            margin-bottom: 30px; /* Espacio debajo del título */
+        }
+        .buttons {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+        }
+        .buttons button {
+            background-color: #ce93d8;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.3s, font-size 0.3s;
+        }
+        .buttons button:hover {
+            background-color: #ab47bc;
+        }
+        #message {
+            color: #6a1b9a;
+            font-size: 1.5em;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="https://media.tenor.com/7UgA3xxF2TkAAAAM/milk-and-mocha-love.gif" alt="Ositos Amorosos">
+        <h1 id="title">¿Me perdonas? 🫶🏻</h1>
+        <div class="buttons">
+            <button id="yesBtn">Sí</button>
+            <button id="noBtn">No</button>
+        </div>
+        <p id="message"></p>
+    </div>
+
+    <script>
+        const yesBtn = document.getElementById('yesBtn');
+        const noBtn = document.getElementById('noBtn');
+        const message = document.getElementById('message');
+        const container = document.querySelector('.container');
+        const title = document.getElementById('title');
+
+        const apologyPhrases = ["Porfavor", "Peldoname", "Peldom", "Peldom shii", "Por favor perdóname"];
+
+        let apologyIndex = 0;
+
+        yesBtn.addEventListener('click', () => {
+            message.textContent = "Te amo mucho mi amor, gracias por perdonarme 💜";
+            // Ocultar los botones
+            container.querySelector('.buttons').style.display = 'none';
+            // Asegurar que la frase "me perdonas 🫶🏻" no esté tocando las opciones
+            title.style.marginBottom = '50px';
+        });
+
+        noBtn.addEventListener('click', () => {
+            apologyIndex = (apologyIndex + 1) % apologyPhrases.length;
+            noBtn.textContent = apologyPhrases[apologyIndex];
+            // Ajustar tamaño del botón "No"
+            let currentScale = parseFloat(noBtn.style.transform.split('(')[1]) || 1;
+            noBtn.style.transform = `scale(${Math.max(0.5, currentScale - 0.1)})`;
+            // Aumentar tamaño del botón "Sí"
+            currentScale = parseFloat(yesBtn.style.transform.split('(')[1]) || 1;
+            yesBtn.style.transform = `scale(${currentScale + 0.1})`;
+            // Asegurar que la frase "me perdonas 🫶🏻" no esté tocando las opciones
+            title.style.marginBottom = '50px';
+        });
+    </script>
+</body>
+</html>
